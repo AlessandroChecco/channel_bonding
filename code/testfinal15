@@ -1,0 +1,226 @@
+for i=1:5
+solve_optim(i,19);
+end;exit
+
+-------------------------------START-------------------------------
+Solving problem with: 
+1 BSSs, 19 channels.
+Each basestations has 62 possible choices (including no transmission)
+The system has 5 total combinations
+ 
+Successive approximation method to be employed.
+   SDPT3 will be called several times to refine the solution.
+   Original size: 8 variables, 3 equality constraints
+   1 exponentials add 8 variables, 5 equality constraints
+-----------------------------------------------------------------
+ Cones  |             Errors              |
+Mov/Act | Centering  Exp cone   Poly cone | Status
+--------+---------------------------------+---------
+  1/  1 | 8.000e+00  4.557e+01  0.000e+00 | Inaccurate/Solved
+  1/  1 | 8.000e+00s 8.663e+00  0.000e+00 | Solved
+  1/  1 | 1.542e+00  1.437e-01  0.000e+00 | Solved
+  1/  1 | 7.170e-02  3.218e-04  0.000e+00 | Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Solved
+-----------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +17.47
+ 
+SOLUTION (it is not unique)
+spending 1 of the time in
+channels [1  2  3  4  5  6  7  8] for node 1
+throughput of this chunk: 38.6473 Mb/s.   (38.6473)
+----------------------------------------------
+Total throughput: 38.6473 Mb/s
+   38.6473
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+Total throughput of legacy: 24.0722 Mb/s
+   24.0722
+
+-------------------------------END---------------------------------
+
+
+-------------------------------START-------------------------------
+Solving problem with: 
+2 BSSs, 19 channels.
+Each basestations has 62 possible choices (including no transmission)
+The system has 24 total combinations
+ 
+Successive approximation method to be employed.
+   SDPT3 will be called several times to refine the solution.
+   Original size: 30 variables, 5 equality constraints
+   2 exponentials add 16 variables, 10 equality constraints
+-----------------------------------------------------------------
+ Cones  |             Errors              |
+Mov/Act | Centering  Exp cone   Poly cone | Status
+--------+---------------------------------+---------
+  2/  2 | 8.000e+00  4.557e+01  0.000e+00 | Inaccurate/Solved
+  2/  2 | 8.000e+00s 8.663e+00  0.000e+00 | Inaccurate/Solved
+  2/  2 | 1.542e+00  1.437e-01  0.000e+00 | Solved
+  2/  2 | 7.170e-02  3.217e-04  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+-----------------------------------------------------------------
+Status: Inaccurate/Solved
+Optimal value (cvx_optval): +34.94
+ 
+SOLUTION (it is not unique)
+spending 1 of the time in
+channels [1  2  3  4  5  6  7  8] for node 1
+channels [9  10  11  12  13  14  15  16] for node 2
+throughput of this chunk: 77.2947 Mb/s.   (38.6473      38.6473)
+----------------------------------------------
+Total throughput: 77.2947 Mb/s
+   38.6473
+   38.6473
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+Total throughput of legacy: 48.1444 Mb/s
+   24.0722
+   24.0722
+
+-------------------------------END---------------------------------
+
+
+-------------------------------START-------------------------------
+Solving problem with: 
+3 BSSs, 19 channels.
+Each basestations has 62 possible choices (including no transmission)
+The system has 120 total combinations
+ 
+Successive approximation method to be employed.
+   SDPT3 will be called several times to refine the solution.
+   Original size: 129 variables, 7 equality constraints
+   3 exponentials add 24 variables, 15 equality constraints
+-----------------------------------------------------------------
+ Cones  |             Errors              |
+Mov/Act | Centering  Exp cone   Poly cone | Status
+--------+---------------------------------+---------
+  3/  3 | 8.000e+00  4.512e+01  0.000e+00 | Inaccurate/Solved
+  3/  3 | 8.000e+00s 8.535e+00  0.000e+00 | Inaccurate/Solved
+  3/  3 | 1.480e+00  1.325e-01  0.000e+00 | Inaccurate/Solved
+  3/  3 | 6.612e-02  2.736e-04  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Solved
+-----------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +52.2398
+ 
+SOLUTION (it is not unique)
+spending 0.33333 of the time in
+channels [1  2  3  4] for node 1
+channels [5  6  7  8] for node 2
+channels [9  10  11  12  13  14  15  16] for node 3
+throughput of this chunk: 109.5484 Mb/s.   (35.4505      35.4505      38.6473)
+----------------------------------------------
+spending 0.33333 of the time in
+channels [1  2  3  4] for node 1
+channels [5   6   7   8   9  10  11  12] for node 2
+channels [13  14  15  16] for node 3
+throughput of this chunk: 109.5484 Mb/s.   (35.4505      38.6473      35.4505)
+----------------------------------------------
+spending 0.33333 of the time in
+channels [1  2  3  4  5  6  7  8] for node 1
+channels [9  10  11  12] for node 2
+channels [13  14  15  16] for node 3
+throughput of this chunk: 109.5484 Mb/s.   (38.6473      35.4505      35.4505)
+----------------------------------------------
+Total throughput: 109.5483 Mb/s
+   35.4505   35.4505   38.6473
+   35.4505   38.6473   35.4505
+   38.6473   35.4505   35.4505
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+User 3 uses channel 3 all the time
+Total throughput of legacy: 72.2166 Mb/s
+   24.0722
+   24.0722
+   24.0722
+
+-------------------------------END---------------------------------
+
+
+-------------------------------START-------------------------------
+Solving problem with: 
+4 BSSs, 19 channels.
+Each basestations has 62 possible choices (including no transmission)
+The system has 543 total combinations
+ 
+Successive approximation method to be employed.
+   SDPT3 will be called several times to refine the solution.
+   Original size: 555 variables, 9 equality constraints
+   4 exponentials add 32 variables, 20 equality constraints
+-----------------------------------------------------------------
+ Cones  |             Errors              |
+Mov/Act | Centering  Exp cone   Poly cone | Status
+--------+---------------------------------+---------
+  4/  4 | 8.000e+00  4.489e+01  0.000e+00 | Inaccurate/Solved
+  4/  4 | 8.000e+00s 8.469e+00  0.000e+00 | Inaccurate/Solved
+  4/  4 | 1.447e+00  1.269e-01  0.000e+00 | Inaccurate/Solved
+  4/  4 | 6.331e-02  2.508e-04  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+  0/  0 | 0.000e+00  0.000e+00  0.000e+00 | Inaccurate/Solved
+-----------------------------------------------------------------
+Status: Inaccurate/Solved
+Optimal value (cvx_optval): +69.5346
+ 
+SOLUTION (it is not unique)
+spending 0.99999 of the time in
+channels [1  2  3  4] for node 1
+channels [5  6  7  8] for node 2
+channels [9  10  11  12] for node 3
+channels [13  14  15  16] for node 4
+throughput of this chunk: 141.8021 Mb/s.   (35.4505      35.4505      35.4505      35.4505)
+----------------------------------------------
+Total throughput: 141.8012 Mb/s
+   35.4505
+   35.4505
+   35.4505
+   35.4505
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+User 3 uses channel 3 all the time
+User 4 uses channel 4 all the time
+Total throughput of legacy: 96.2889 Mb/s
+   24.0722
+   24.0722
+   24.0722
+   24.0722
+
+-------------------------------END---------------------------------
+
+{Operation terminated by user during throughput (line 26)
+
+In solve_optim (line 18)
+        [T channel_lexic allocations oldT olda] = throughputnew(N,c);
+} 
+exit

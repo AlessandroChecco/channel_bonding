@@ -1,0 +1,440 @@
+C = 4
+for N=1:5
+    solve_optim(N,C);
+end
+Solving problem with: 
+1 BSSs, 4 channels.
+Each basestations has 16 possible choices (including no transmission)
+The system has 11 total combinations
+ 
+Calling SDPT3 4.0: 11 variables, 1 equality constraints
+------------------------------------------------------------
+
+ num. of constraints =  1
+ dim. of linear var  = 11
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+    NT      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|5.5e+01|4.0e+00|7.3e+03|-1.357234e+03  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.917|1.000|4.5e+00|5.0e-03|1.2e+03| 1.039085e+02 -1.069547e+02| 0:0:00| chol  1  1 
+ 2|1.000|1.000|1.1e-07|5.0e-04|9.0e+01| 3.475225e+00 -8.618549e+01| 0:0:00| chol  1  1 
+ 3|1.000|0.895|1.8e-08|9.7e-05|1.0e+01|-8.934205e+00 -1.918282e+01| 0:0:00| chol  1  1 
+ 4|0.962|0.941|5.9e-09|1.0e-05|5.0e-01|-1.693728e+01 -1.744144e+01| 0:0:00| chol  1  1 
+ 5|0.940|1.000|3.4e-10|5.0e-07|1.2e-01|-1.732785e+01 -1.744938e+01| 0:0:00| chol  1  1 
+ 6|0.983|0.887|6.6e-11|1.0e-07|1.2e-02|-1.737364e+01 -1.738551e+01| 0:0:00| chol  1  1 
+ 7|0.970|0.998|2.0e-11|5.2e-09|3.2e-04|-1.738337e+01 -1.738369e+01| 0:0:00| chol  1  1 
+ 8|0.989|0.989|7.7e-12|6.4e-11|3.7e-06|-1.738365e+01 -1.738365e+01| 0:0:00| chol  1  1 
+ 9|0.993|0.996|6.2e-13|1.8e-12|6.5e-08|-1.738365e+01 -1.738365e+01| 0:0:00|
+  stop: max(relative gap, infeasibilities) < 1.49e-08
+-------------------------------------------------------------------
+ number of iterations   =  9
+ primal objective value = -1.73836483e+01
+ dual   objective value = -1.73836484e+01
+ gap := trace(XZ)       = 6.49e-08
+ relative gap           = 1.81e-09
+ actual relative gap    = 1.81e-09
+ rel. primal infeas     = 6.16e-13
+ rel. dual   infeas     = 1.80e-12
+ norm(X), norm(y), norm(Z) = 1.0e+00, 1.7e+01, 5.3e+01
+ norm(A), norm(b), norm(C) = 4.3e+00, 2.0e+00, 6.6e+01
+ Total CPU time (secs)  = 0.48  
+ CPU time per iteration = 0.05  
+ termination code       =  0
+ DIMACS: 6.2e-13  0.0e+00  3.2e-12  0.0e+00  1.8e-09  1.8e-09
+-------------------------------------------------------------------
+------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +17.3836
+ 
+SOLUTION (it is not unique)
+spending 1 of the time in
+channels [1  2  3  4] for node 1
+throughput of this chunk: 35.4505 Mb/s.   (35.4505)
+----------------------------------------------
+Total throughput: 35.4505 Mb/s
+   35.4505
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+Total throughput of legacy: 24.0722 Mb/s
+   24.0722
+
+
+
+
+Solving problem with: 
+2 BSSs, 4 channels.
+Each basestations has 16 possible choices (including no transmission)
+The system has 50 total combinations
+ 
+Calling SDPT3 4.0: 50 variables, 1 equality constraints
+------------------------------------------------------------
+
+ num. of constraints =  1
+ dim. of linear var  = 50
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+    NT      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|2.5e+02|7.6e+00|1.0e+05|-6.477256e+03  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.974|1.000|6.4e+00|3.4e-03|3.0e+03|-1.035495e+02 -2.238344e+02| 0:0:00| chol  1  1 
+ 2|1.000|1.000|1.2e-07|3.4e-04|1.8e+02|-1.099624e+01 -1.942857e+02| 0:0:00| chol  1  1 
+ 3|1.000|0.895|2.0e-08|6.7e-05|2.0e+01|-1.809652e+01 -3.779422e+01| 0:0:00| chol  1  1 
+ 4|0.942|1.000|4.1e-09|3.4e-06|2.0e+00|-3.350712e+01 -3.546275e+01| 0:0:00| chol  1  1 
+ 5|1.000|0.800|1.9e-10|9.6e-07|3.2e-01|-3.419456e+01 -3.451257e+01| 0:0:00| chol  1  1 
+ 6|0.523|1.000|5.1e-11|3.4e-08|2.8e-01|-3.438263e+01 -3.466448e+01| 0:0:00| chol  1  1 
+ 7|1.000|0.944|2.1e-11|5.2e-09|1.4e-02|-3.447175e+01 -3.448592e+01| 0:0:00| chol  1  1 
+ 8|0.986|0.986|7.6e-12|4.1e-10|2.0e-04|-3.448135e+01 -3.448155e+01| 0:0:00| chol  1  1 
+ 9|0.989|0.989|2.6e-12|6.1e-12|2.2e-06|-3.448149e+01 -3.448149e+01| 0:0:00| chol  1  1 
+10|0.998|0.990|4.4e-15|1.1e-12|3.3e-08|-3.448149e+01 -3.448149e+01| 0:0:00|
+  stop: max(relative gap, infeasibilities) < 1.49e-08
+-------------------------------------------------------------------
+ number of iterations   = 10
+ primal objective value = -3.44814890e+01
+ dual   objective value = -3.44814890e+01
+ gap := trace(XZ)       = 3.31e-08
+ relative gap           = 4.73e-10
+ actual relative gap    = 4.72e-10
+ rel. primal infeas     = 4.39e-15
+ rel. dual   infeas     = 1.06e-12
+ norm(X), norm(y), norm(Z) = 7.1e-01, 3.4e+01, 2.4e+02
+ norm(A), norm(b), norm(C) = 8.1e+00, 2.0e+00, 2.1e+02
+ Total CPU time (secs)  = 0.12  
+ CPU time per iteration = 0.01  
+ termination code       =  0
+ DIMACS: 4.4e-15  0.0e+00  6.2e-12  0.0e+00  4.7e-10  4.7e-10
+-------------------------------------------------------------------
+------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +34.4815
+ 
+SOLUTION (it is not unique)
+spending 1 of the time in
+channels [3  4] for node 1
+channels [1  2] for node 2
+throughput of this chunk: 61.4597 Mb/s.   (30.7298      30.7298)
+----------------------------------------------
+Total throughput: 61.4597 Mb/s
+   30.7298
+   30.7298
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+Total throughput of legacy: 48.1444 Mb/s
+   24.0722
+   24.0722
+
+
+
+
+Solving problem with: 
+3 BSSs, 4 channels.
+Each basestations has 16 possible choices (including no transmission)
+The system has 420 total combinations
+ 
+Calling SDPT3 4.0: 420 variables, 1 equality constraints
+------------------------------------------------------------
+
+ num. of constraints =  1
+ dim. of linear var  = 420
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+    NT      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|4.3e+03|2.0e+01|8.5e+06| 2.842450e+05  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.987|1.000|5.8e+01|2.1e-03|1.2e+05| 3.360579e+03 -9.598828e+02| 0:0:00| chol  1  1 
+ 2|0.998|1.000|1.2e-01|2.1e-04|1.2e+03| 3.368305e+01 -9.431991e+02| 0:0:00| chol  1  1 
+ 3|1.000|0.949|2.4e-08|3.0e-05|8.4e+01| 2.428155e+01 -6.015218e+01| 0:0:00| chol  1  1 
+ 4|0.574|1.000|5.0e-09|2.1e-06|7.1e+01|-3.631101e+01 -1.077082e+02| 0:0:00| chol  1  1 
+ 5|1.000|0.947|1.9e-10|3.1e-07|3.7e+00|-4.878001e+01 -5.250781e+01| 0:0:00| chol  1  1 
+ 6|0.980|0.900|6.9e-11|4.9e-08|1.9e-01|-5.107124e+01 -5.126085e+01| 0:0:00| chol  1  1 
+ 7|0.890|1.000|1.5e-11|2.1e-09|3.9e-02|-5.120491e+01 -5.124398e+01| 0:0:00| chol  1  1 
+ 8|0.986|0.986|7.6e-12|2.4e-10|5.4e-04|-5.123348e+01 -5.123402e+01| 0:0:00| chol  1  1 
+ 9|0.989|0.989|2.6e-12|4.1e-12|6.0e-06|-5.123388e+01 -5.123388e+01| 0:0:00| chol  1  1 
+10|0.993|0.991|1.4e-14|1.0e-12|1.1e-07|-5.123388e+01 -5.123388e+01| 0:0:00|
+  stop: max(relative gap, infeasibilities) < 1.49e-08
+-------------------------------------------------------------------
+ number of iterations   = 10
+ primal objective value = -5.12338822e+01
+ dual   objective value = -5.12338823e+01
+ gap := trace(XZ)       = 1.09e-07
+ relative gap           = 1.05e-09
+ actual relative gap    = 1.05e-09
+ rel. primal infeas     = 1.37e-14
+ rel. dual   infeas     = 1.04e-12
+ norm(X), norm(y), norm(Z) = 2.4e-01, 5.1e+01, 1.9e+03
+ norm(A), norm(b), norm(C) = 2.1e+01, 2.0e+00, 9.9e+02
+ Total CPU time (secs)  = 0.07  
+ CPU time per iteration = 0.01  
+ termination code       =  0
+ DIMACS: 1.4e-14  0.0e+00  1.8e-11  0.0e+00  1.1e-09  1.1e-09
+-------------------------------------------------------------------
+------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +51.2339
+ 
+SOLUTION (it is not unique)
+spending 0.33333 of the time in
+channels [4] for node 1
+channels [3] for node 2
+channels [1  2] for node 3
+throughput of this chunk: 78.8743 Mb/s.   (24.0722      24.0722      30.7298)
+----------------------------------------------
+spending 0.33333 of the time in
+channels [4] for node 1
+channels [2  3] for node 2
+channels [1] for node 3
+throughput of this chunk: 78.8743 Mb/s.   (24.0722      30.7298      24.0722)
+----------------------------------------------
+spending 0.33333 of the time in
+channels [3  4] for node 1
+channels [2] for node 2
+channels [1] for node 3
+throughput of this chunk: 78.8743 Mb/s.   (30.7298      24.0722      24.0722)
+----------------------------------------------
+Total throughput: 78.8743 Mb/s
+   24.0722   24.0722   30.7298
+   24.0722   30.7298   24.0722
+   30.7298   24.0722   24.0722
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+User 3 uses channel 3 all the time
+Total throughput of legacy: 72.2166 Mb/s
+   24.0722
+   24.0722
+   24.0722
+
+
+
+
+Solving problem with: 
+4 BSSs, 4 channels.
+Each basestations has 16 possible choices (including no transmission)
+The system has 3448 total combinations
+ 
+Calling SDPT3 4.0: 3448 variables, 1 equality constraints
+------------------------------------------------------------
+
+ num. of constraints =  1
+ dim. of linear var  = 3448
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+    NT      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|1.0e+05|5.8e+01|9.8e+08| 1.537663e+07  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.989|1.000|1.1e+03|3.7e-03|1.1e+07| 1.718403e+05 -4.743647e+03| 0:0:00| chol  1  1 
+ 2|0.989|1.000|1.2e+01|3.7e-04|1.2e+05| 1.881974e+03 -4.739680e+03| 0:0:00| chol  1  1 
+ 3|1.000|1.000|4.0e-08|3.7e-05|4.4e+03| 7.547955e+01 -4.360425e+03| 0:0:00| chol  1  1 
+ 4|1.000|0.955|6.8e-09|5.2e-06|2.0e+02| 7.501683e+01 -1.271237e+02| 0:0:00| chol  1  1 
+ 5|1.000|1.000|4.6e-11|3.7e-07|1.4e+02| 5.090534e+01 -8.427672e+01| 0:0:00| chol  1  1 
+ 6|0.553|1.000|1.8e-11|3.7e-08|1.3e+02|-3.331511e+01 -1.674888e+02| 0:0:00| chol  1  1 
+ 7|1.000|0.930|2.1e-11|6.0e-09|1.1e+01|-6.000239e+01 -7.062095e+01| 0:0:00| chol  1  1 
+ 8|0.983|0.986|7.4e-12|4.5e-10|1.8e-01|-6.785274e+01 -6.803000e+01| 0:0:00| chol  1  1 
+ 9|0.989|0.989|2.6e-12|4.3e-11|2.0e-03|-6.798479e+01 -6.798676e+01| 0:0:00| chol  1  1 
+10|1.000|0.989|2.4e-14|1.5e-12|2.7e-05|-6.798625e+01 -6.798628e+01| 0:0:00| chol  1  1 
+11|1.000|0.989|2.3e-15|1.0e-12|3.5e-07|-6.798628e+01 -6.798628e+01| 0:0:00|
+  stop: max(relative gap, infeasibilities) < 1.49e-08
+-------------------------------------------------------------------
+ number of iterations   = 11
+ primal objective value = -6.79862753e+01
+ dual   objective value = -6.79862756e+01
+ gap := trace(XZ)       = 3.52e-07
+ relative gap           = 2.57e-09
+ actual relative gap    = 2.57e-09
+ rel. primal infeas     = 2.33e-15
+ rel. dual   infeas     = 1.02e-12
+ norm(X), norm(y), norm(Z) = 2.0e-01, 6.8e+01, 8.6e+03
+ norm(A), norm(b), norm(C) = 6.0e+01, 2.0e+00, 4.8e+03
+ Total CPU time (secs)  = 0.16  
+ CPU time per iteration = 0.01  
+ termination code       =  0
+ DIMACS: 2.3e-15  0.0e+00  5.3e-11  0.0e+00  2.6e-09  2.6e-09
+-------------------------------------------------------------------
+------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +67.9863
+ 
+SOLUTION (it is not unique)
+spending 1 of the time in
+channels [4] for node 1
+channels [3] for node 2
+channels [2] for node 3
+channels [1] for node 4
+throughput of this chunk: 96.2889 Mb/s.   (24.0722      24.0722      24.0722      24.0722)
+----------------------------------------------
+Total throughput: 96.2889 Mb/s
+   24.0722
+   24.0722
+   24.0722
+   24.0722
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+User 3 uses channel 3 all the time
+User 4 uses channel 4 all the time
+Total throughput of legacy: 96.2889 Mb/s
+   24.0722
+   24.0722
+   24.0722
+   24.0722
+
+
+
+
+solve_optim(5,C);
+Solving problem with: 
+5 BSSs, 4 channels.
+Each basestations has 16 possible choices (including no transmission)
+The system has 27930 total combinations
+ 
+Calling SDPT3 4.0: 27930 variables, 1 equality constraints
+------------------------------------------------------------
+
+ num. of constraints =  1
+ dim. of linear var  = 27930
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+    NT      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|2.3e+06|1.7e+02|9.3e+10| 5.451046e+08  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.989|1.000|2.6e+04|4.2e-03|1.0e+09| 5.967103e+06 -1.985909e+04| 0:0:00| chol  1  1 
+ 2|0.989|1.000|2.8e+02|4.2e-04|1.1e+07| 6.556017e+04 -1.985880e+04| 0:0:00| chol  1  1 
+ 3|0.991|1.000|2.5e+00|4.2e-05|1.2e+05| 7.100512e+02 -1.978778e+04| 0:0:00| chol  1  1 
+ 4|1.000|1.000|1.2e-08|4.2e-06|1.4e+04| 1.167280e+02 -1.383122e+04| 0:0:00| chol  1  1 
+ 5|1.000|0.978|2.1e-10|5.0e-07|3.1e+02| 1.166338e+02 -1.954559e+02| 0:0:00| chol  1  1 
+ 6|1.000|0.981|3.5e-11|5.1e-08|1.5e+02| 1.101011e+02 -4.060736e+01| 0:0:00| chol  1  1 
+ 7|0.332|1.000|6.3e-12|4.2e-09|3.1e+02| 9.400919e+00 -2.996982e+02| 0:0:00| chol  1  1 
+ 8|1.000|0.923|7.5e-12|7.1e-10|2.8e+01|-1.064845e+01 -3.850550e+01| 0:0:00| chol  1  1 
+ 9|0.973|0.992|2.4e-12|4.9e-11|6.6e-01|-3.143648e+01 -3.209751e+01| 0:0:00| chol  1  1 
+10|0.989|0.989|1.1e-13|5.7e-12|7.6e-03|-3.193684e+01 -3.194439e+01| 0:0:00| chol  1  1 
+11|1.000|0.989|2.3e-13|1.5e-12|1.0e-04|-3.194254e+01 -3.194264e+01| 0:0:00| chol  1  1 
+12|1.000|0.989|1.1e-13|1.0e-12|1.3e-06|-3.194262e+01 -3.194262e+01| 0:0:00| chol  1  1 
+13|1.000|0.989|7.5e-13|1.0e-12|1.7e-08|-3.194262e+01 -3.194262e+01| 0:0:00|
+  stop: max(relative gap, infeasibilities) < 1.49e-08
+-------------------------------------------------------------------
+ number of iterations   = 13
+ primal objective value = -3.19426222e+01
+ dual   objective value = -3.19426222e+01
+ gap := trace(XZ)       = 1.70e-08
+ relative gap           = 2.62e-10
+ actual relative gap    = 2.60e-10
+ rel. primal infeas     = 7.54e-13
+ rel. dual   infeas     = 1.01e-12
+ norm(X), norm(y), norm(Z) = 9.1e-02, 3.2e+01, 2.5e+04
+ norm(A), norm(b), norm(C) = 1.7e+02, 2.0e+00, 2.0e+04
+ Total CPU time (secs)  = 0.30  
+ CPU time per iteration = 0.02  
+ termination code       =  0
+ DIMACS: 7.5e-13  0.0e+00  1.6e-10  0.0e+00  2.6e-10  2.6e-10
+-------------------------------------------------------------------
+------------------------------------------------------------
+Status: Solved
+Optimal value (cvx_optval): +31.9426
+ 
+SOLUTION (it is not unique)
+spending 0.2 of the time in
+channels [] for node 1
+channels [4] for node 2
+channels [3] for node 3
+channels [2] for node 4
+channels [1] for node 5
+throughput of this chunk: 96.2889 Mb/s.   (2.22045e-22      24.0722      24.0722      24.0722      24.0722)
+----------------------------------------------
+spending 0.2 of the time in
+channels [4] for node 1
+channels [] for node 2
+channels [3] for node 3
+channels [2] for node 4
+channels [1] for node 5
+throughput of this chunk: 96.2889 Mb/s.   (24.0722  2.22045e-22      24.0722      24.0722      24.0722)
+----------------------------------------------
+spending 0.2 of the time in
+channels [4] for node 1
+channels [3] for node 2
+channels [] for node 3
+channels [2] for node 4
+channels [1] for node 5
+throughput of this chunk: 96.2889 Mb/s.   (24.0722      24.0722  2.22045e-22      24.0722      24.0722)
+----------------------------------------------
+spending 0.2 of the time in
+channels [4] for node 1
+channels [3] for node 2
+channels [2] for node 3
+channels [] for node 4
+channels [1] for node 5
+throughput of this chunk: 96.2889 Mb/s.   (24.0722      24.0722      24.0722  2.22045e-22      24.0722)
+----------------------------------------------
+spending 0.2 of the time in
+channels [4] for node 1
+channels [3] for node 2
+channels [2] for node 3
+channels [1] for node 4
+channels [] for node 5
+throughput of this chunk: 96.2889 Mb/s.   (24.0722      24.0722      24.0722      24.0722  2.22045e-22)
+----------------------------------------------
+Total throughput: 96.2889 Mb/s
+    0.0000   24.0722   24.0722   24.0722   24.0722
+   24.0722    0.0000   24.0722   24.0722   24.0722
+   24.0722   24.0722    0.0000   24.0722   24.0722
+   24.0722   24.0722   24.0722    0.0000   24.0722
+   24.0722   24.0722   24.0722   24.0722    0.0000
+
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+----------------------------------------------
+COMPARISON with standard 802.11, stations using a single channel (evenly
+           distributed amongst the channels available)
+User 1 uses channel 1 all the time
+User 2 uses channel 2 all the time
+User 3 uses channel 3 all the time
+User 4 uses channel 4 all the time
+User 5 uses channel 1 all the time
+Total throughput of legacy: 72.2166 Mb/s
+         0
+   24.0722
+   24.0722
+   24.0722
+         0
+
+

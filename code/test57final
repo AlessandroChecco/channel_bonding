@@ -1,0 +1,15 @@
+for i=5:7
+solve_optim(i,19)
+end
+{Operation terminated by user during combinator>perms_rep (line 162)
+
+In combinator (line 110)
+            A = perms_rep(N,K);     % strings
+
+In throughput (line 6)
+allocations = combinator(int8(max_element),N);
+
+In solve_optim (line 18)
+        [T channel_lexic allocations oldT olda] = throughput(N,c);
+} 
+exit

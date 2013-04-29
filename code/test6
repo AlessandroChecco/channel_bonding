@@ -1,0 +1,17 @@
+solve_optim(6,19);exit
+{Error using zeros
+Out of memory. Type HELP MEMORY for your options.
+
+Error in combinator>perms_rep (line 155)
+PR = zeros(L,K,CN);  % Preallocation.
+
+Error in combinator (line 110)
+            A = perms_rep(N,K);     % strings
+
+Error in throughput (line 6)
+allocations = combinator(int8(max_element),N);
+
+Error in solve_optim (line 18)
+        [T channel_lexic allocations oldT olda] = throughput(N,c);
+} 
+exit
