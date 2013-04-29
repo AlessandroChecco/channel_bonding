@@ -159,7 +159,7 @@ T(:,toremove) = [];
     
         function out = generate_continguous(width)
             %generate contiguous combinations given a certain width
-            for i=1:C-width
+            for i=1:C-width+1
                 out(i,:) = i:i+width-1;
             end
         end
