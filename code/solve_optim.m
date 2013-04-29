@@ -15,7 +15,7 @@ if nargin == 2
         load(['throughput' num2str(N) '.mat'],'olda')
         fprintf('done!')
     else
-        [T channel_lexic allocations oldT olda] = throughputnew(N,c);
+        [T channel_lexic allocations oldT olda] = throughput(N,c);
         save(['throughput' num2str(N) '.mat'])
     end
 end

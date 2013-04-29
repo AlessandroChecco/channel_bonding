@@ -1,52 +1,125 @@
-function [T channel_lexic allocations oldT olda] = throughputnew(N,C,widths)
+function [T channel_lexic allocations oldT olda] = throughputold(N,C,widths)
 % [T channel_lexic allocations] = throughput(N,C)
 if nargin  == 2
     widths = 2.^([0:3]);
 end
     channel_lexic = create_channel(widths);
     
-allh = nextstring(max_element,N);
+    ww = [0 widths];
+    for w=1:numel(ww)
+        indw(ww(w)+1) = w;
+        TT(w) = BSSThroughput(ww(w));
+    end
+    
+% allh = nextstring_fast(max_element,N);
 % allocations = combinator(int8(max_element),N); %change ** TODO with nextcomb or nextchoose
     
+
+    text1 = 'Progress: ';
+    ll = numel(text1);
+    text2 = '';
+    for i=1:ll
+    text2=[text2 '\b'];
+    end
+
+    text2 = [text2 '\b\b\b\b\b\b'];
+    out = [text2 text1 '%2.2f%%'];
+
+    check_every=100;
+
 %T(i,j) represent the throughput of station i when using channel allocation j
 
-through = memoize(@BSSThroughput); % avoid to recompute same values over and over
+% through = memoize(@BSSThroughput); % avoid to recompute same values over and over
+
+ttt = memoize(@check_inters);
+    function out = check_inters(a,b)
+        out = ~isempty(intersect(channel_lexic(a).index,channel_lexic(b).index));
+    end
+
+lll = memoize(@memb);
+
+    function out = memb(a,b)
+        out = ~ismember(a,b);
+    end
+
+combs = combinator(numel(channel_lexic),2,'c');
+
+ccc = false(numel(channel_lexic),numel(channel_lexic));
+for i=combs
+    ccc(i(1),i(2)) = ~isempty(intersect(channel_lexic(i(1)).index, channel_lexic(i(2)).index) );
+    ccc(i(2),i(1)) = ccc(i(1),i(2));
+end
 
 T = zeros(N,max_element);
 count = 0;
+
+CNT = 1;
+allocation = ones(1,N);
+
 mmm = max_element^N;
 for iii = 1:mmm
-    progress(iii,mmm);
+if rem(iii,check_every) == 0
+    fprintf(1,out,(100*iii/mmm))
+end
     count = count + 1;
-    allocation = allh();
+%     allocation = allh();
+
     allocations(count,:) = allocation;
     N_Ov = zeros(N,N);
     for BSS = 1:N
         for j=BSS+1:N
-                N_Ov(BSS,j) = ~isempty(intersect(channel_lexic(allocation(BSS)).index,channel_lexic(allocation(j)).index  )); %sum one if they overlap
+                N_Ov(BSS,j) =  ccc(allocation(BSS),allocation(j));
+                %~isempty(intersect(channel_lexic(allocation(BSS)).index,channel_lexic(allocation(j)).index  )); %sum one if they overlap
                 N_Ov(j,BSS) = N_Ov(BSS,j);
         end
-          if sum(N_Ov(BSS,:)) > 0
-            T(BSS, count) = 0;
+          if  any(N_Ov(BSS,:)) %can use sum(N_Ov(BSS,:))
+            tempT(BSS) = 0;
+            %T(BSS, count) = 0;
           else
               %disp (channel_lexic(allocations(allocation,BSS)).width)
 %               disp(channel_lexic(allocations(allocation,BSS)).index)
-              T(BSS,count) = through(channel_lexic(allocation(BSS)).width);
+              %T(BSS,count) = BSSThroughput(channel_lexic(allocation(BSS)).width);
+              tempT(BSS) = TT(indw(channel_lexic(allocation(BSS)).width +1 ) );
+              %BSSThroughput(channel_lexic(allocation(BSS)).width);
           end
     end
-    for i = 1:count-1
-        if isequal(T(:,count),T(:,i))
-            T(:,count) = [];
-            allocations(count,:) = [];
-            count = count -1;
-            break;
-        end
+    flag = false;
+    if ~any(any(all(bsxfun(@eq,tempT,T'),2),1)) %~ismember(tempT,T','rows')
+%     for iiii = 1:count-2
+%         if isequal(tempT(:),T(:,iiii))
+%             %T(:,count) = [];
+%             %allocations(count,:) = [];
+%             count = count -1;
+%             flag = true;
+%             break;
+%         end
+%     end
+%     if ~flag
+        T(:,count) = tempT;
+    else
+        count = count - 1;
     end
-            
+    
+    if CNT < mmm
+        if allocation(N) == max_element  % This col is as high as it can go.
+                cnt = N-1; % Look for first col to update.
+
+                while allocation(cnt) == max_element
+                    cnt = cnt-1;  % Keep looking for first col to update.
+                end
+
+                allocation(cnt) = allocation(cnt) + 1; % Increase this col.
+                allocation((cnt+1):N) = 1; % And set the followers to 1.
+        else
+                allocation(N) = allocation(N) + 1; % This col is not done yet,
+        end
+
+            CNT = CNT + 1;   
+    end
 end
 
 
-[qq ii jj] = unique(T','rows','first');
+[qq,ii,~] = unique(T','rows','first');
 T = qq';
 allocations = allocations(ii,:);
 

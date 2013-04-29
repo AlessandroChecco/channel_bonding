@@ -1,127 +1,65 @@
-function [T channel_lexic allocations oldT olda] = throughput(N,C,widths)
+function [T channel_lexic allocations oldT olda] = throughputnew(N,C,widths)
 % [T channel_lexic allocations] = throughput(N,C)
+
+isequalRel = @(x,y,tol) ( abs(x-y) <= ( tol*max(abs(x),abs(y)) + eps) );
+isequalAbs = @(x,y,tol) ( abs(x-y) <= tol );
+
 if nargin  == 2
     widths = 2.^([0:3]);
 end
     channel_lexic = create_channel(widths);
     
-    ww = [0 widths];
-    for w=1:numel(ww)
-        indw(ww(w)+1) = w;
-        TT(w) = BSSThroughput(ww(w));
-    end
-    
-% allh = nextstring_fast(max_element,N);
+allh = nextstring(max_element,N);
 % allocations = combinator(int8(max_element),N); %change ** TODO with nextcomb or nextchoose
     
-
-    text1 = 'Computing Throughput: ';
-    ll = numel(text1);
-    text2 = '';
-    for ki=1:ll
-    text2=[text2 '\b'];
-    end
-
-    text2 = [text2 '\b\b\b\b\b\b'];
-    out = [text2 text1 '%2.2f%%'];
-
-    check_every=10000;
-
 %T(i,j) represent the throughput of station i when using channel allocation j
 
-% through = memoize(@BSSThroughput); % avoid to recompute same values over and over
+through = memoize(@BSSThroughput); % avoid to recompute same values over and over
+% comb = memoize(@combinator);
+% check_inters = @(a,b) ~isempty(intersect(a,b));
+combs = combinator(N,2,'c');
 
-ttt = memoize(@check_inters);
     function out = check_inters(a,b)
         out = ~isempty(intersect(channel_lexic(a).index,channel_lexic(b).index));
     end
-
-lll = memoize(@memb);
-
-    function out = memb(a,b)
-        out = ~ismember(a,b);
-    end
-
-combs = combinator(numel(channel_lexic),2,'c');
-
-ccc = eye(numel(channel_lexic),numel(channel_lexic));
-ccc(1,1) = 0;
-for iiip=1:size(combs,1)
-    ip = combs(iiip,:);
-    ccc(ip(1),ip(2)) = ~isempty(intersect(channel_lexic(ip(1)).index, channel_lexic(ip(2)).index) );
-    ccc(ip(2),ip(1)) = ccc(ip(1),ip(2));
-end
-
-T = zeros(N,1);
+T = zeros(N,max_element);
 count = 0;
-
-CNT = 1;
-allocation = ones(1,N);
-
 mmm = max_element^N;
 for iii = 1:mmm
-if rem(iii,check_every) == 0
-    fprintf(1,out,(100*iii/mmm))
-end
+    progress(iii,mmm); % display the progress
     count = count + 1;
-%     allocation = allh();
-
+    allocation = allh();
     allocations(count,:) = allocation;
     N_Ov = zeros(N,N);
-    for BSS = 1:N
-        for j=BSS+1:N
-                N_Ov(BSS,j) =  ccc(allocation(BSS),allocation(j));
-                %~isempty(intersect(channel_lexic(allocation(BSS)).index,channel_lexic(allocation(j)).index  )); %sum one if they overlap
-                N_Ov(j,BSS) = N_Ov(BSS,j);
-        end
-          if  any(N_Ov(BSS,:)) %can use sum(N_Ov(BSS,:))
-            tempT(BSS) = 0;
-            %T(BSS, count) = 0;
+    for j=1:size(combs,1)
+                BSS1 = combs(j,1);
+                BSS2 = combs(j,2);
+                N_Ov(BSS1,BSS2) = ~isempty(intersect(channel_lexic(allocation(BSS1)).index,channel_lexic(allocation(BSS2)).index));
+                %hlp_microcache('cachedintersect',@check_inters,BSS,j); %sum one if they overlap *memoize this, maybe putting variable in a temp is needed
+                N_Ov(BSS2,BSS1) = N_Ov(BSS1,BSS2);
+    end
+    for BSS=1:N
+          if sum(N_Ov(BSS,:)) > 0
+            T(BSS, count) = 0; %put this on temp!
           else
               %disp (channel_lexic(allocations(allocation,BSS)).width)
 %               disp(channel_lexic(allocations(allocation,BSS)).index)
-              %T(BSS,count) = BSSThroughput(channel_lexic(allocation(BSS)).width);
-              tempT(BSS) = TT(indw(channel_lexic(allocation(BSS)).width +1 ) );
-              %BSSThroughput(channel_lexic(allocation(BSS)).width);
+              T(BSS,count) = through(channel_lexic(allocation(BSS)).width); %put this on temp!
           end
     end
-    flag = false;
-    if ~any(any(all(bsxfun(@eq,tempT,T'),2),1)) %~ismember(tempT,T','rows')
-%     for iiii = 1:count-2
-%         if isequal(tempT(:),T(:,iiii))
-%             %T(:,count) = [];
-%             %allocations(count,:) = [];
-%             count = count -1;
-%             flag = true;
-%             break;
-%         end
-%     end
-%     if ~flag
-        T(:,count) = tempT;
-    else
-        count = count - 1;
-    end
-    
-    if CNT < mmm
-        if allocation(N) == max_element  % This col is as high as it can go.
-                cnt = N-1; % Look for first col to update.
-
-                while allocation(cnt) == max_element
-                    cnt = cnt-1;  % Keep looking for first col to update.
-                end
-
-                allocation(cnt) = allocation(cnt) + 1; % Increase this col.
-                allocation((cnt+1):N) = 1; % And set the followers to 1.
-        else
-                allocation(N) = allocation(N) + 1; % This col is not done yet,
+    for i = 1:count-1
+        if isequal(T(:,count),T(:,i))%isequalAbs(T(:,count),T(:,i),1e-8)
+            T(:,count) = []; %nooooooooooooo
+            allocations(count,:) = [];
+            count = count -1;
+            break;
         end
-
-            CNT = CNT + 1;   
     end
+            
 end
 
 
-[qq,ii,~] = unique(T','rows','first');
+[qq ii jj] = unique(T','rows','first');
 T = qq';
 allocations = allocations(ii,:);
 
@@ -150,9 +88,9 @@ T(:,toremove) = [];
     for width = widths
         channel(width).index = generate_continguous(width);
         channel(width).number = size(channel(width).index,1);
-        for jip = 1:channel(width).number
+        for j = 1:channel(width).number
             element = element + 1;
-            channel_lexic(element).index = channel(width).index(jip,:);
+            channel_lexic(element).index = channel(width).index(j,:);
             channel_lexic(element).width = width;
         end
     end
@@ -250,4 +188,5 @@ T(:,toremove) = [];
     end
 end
     
+
 end
