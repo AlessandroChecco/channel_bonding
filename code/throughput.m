@@ -13,7 +13,7 @@ end
     
 % allh = nextstring_fast(max_element,N);
 % allocations = combinator(int8(max_element),N); %change ** TODO with nextcomb or nextchoose
-    
+
 
     text1 = 'Computing Throughput: ';
     ll = numel(text1);
@@ -27,30 +27,50 @@ end
 
     check_every=10000;
 
-%T(i,j) represent the throughput of station i when using channel allocation j
 
-% through = memoize(@BSSThroughput); % avoid to recompute same values over and over
 
-ttt = memoize(@check_inters);
-    function out = check_inters(a,b)
-        out = ~isempty(intersect(channel_lexic(a).index,channel_lexic(b).index));
-    end
+    
+    
+% combs = combinator(numel(channel_lexic),2,'c');
+% 
+% ccc = eye(numel(channel_lexic),numel(channel_lexic));
+% ccc(1,1) = 0;
+% for iiip=1:size(combs,1)
+%     ip = combs(iiip,:);
+%     ccc(ip(1),ip(2)) = ~isempty(fastintersect(channel_lexic(ip(1)).index, channel_lexic(ip(2)).index) ); % we can speed up intersect
+%     ccc(ip(2),ip(1)) = ccc(ip(1),ip(2));
+% end
+% This is speeded up by the following
 
-lll = memoize(@memb);
-
-    function out = memb(a,b)
-        out = ~ismember(a,b);
-    end
-
-combs = combinator(numel(channel_lexic),2,'c');
-
-ccc = eye(numel(channel_lexic),numel(channel_lexic));
+nnn = numel(channel_lexic);
+ccc = eye(nnn,nnn);
 ccc(1,1) = 0;
-for iiip=1:size(combs,1)
-    ip = combs(iiip,:);
-    ccc(ip(1),ip(2)) = ~isempty(intersect(channel_lexic(ip(1)).index, channel_lexic(ip(2)).index) );
-    ccc(ip(2),ip(1)) = ccc(ip(1),ip(2));
+for ii=2:nnn
+ccc(ii,:) = cellfun(@afun,repmat({channel_lexic(ii).index},1,nnn),{channel_lexic.index});
 end
+
+    function out = afun(A,B)
+    % a and b must be sorted!
+%         out = ~isempty(a(ismembc(a,b)));
+        if ~isempty(A)&&~isempty(B)
+            P = zeros(1, max(max(A),max(B)) ) ;
+            P(A) = 1;
+            out = ~isempty(B(logical(P(B))));
+        else
+            out = false;
+        end
+    end
+
+%     function C = fastintersect(A,B)
+%         % works only on integers!
+%         if ~isempty(A)&&~isempty(B)
+%             P = zeros(1, max(max(A),max(B)) ) ;
+%             P(A) = 1;
+%             C = B(logical(P(B)));
+%         else
+%             C = [];
+%         end
+%     end
 
 T = zeros(N,1);
 count = 0;
@@ -60,13 +80,13 @@ allocation = ones(1,N);
 
 mmm = max_element^N;
 for iii = 1:mmm
-if rem(iii,check_every) == 0
-    fprintf(1,out,(100*iii/mmm))
-end
+% if rem(iii,check_every) == 0
+%     fprintf(1,out,(100*iii/mmm))
+% end
     count = count + 1;
 %     allocation = allh();
 
-    allocations(count,:) = allocation;
+    allocations(:,count) = allocation;
     N_Ov = zeros(N,N);
     for BSS = 1:N
         for j=BSS+1:N
@@ -86,12 +106,9 @@ end
           end
     end
     flag = false;
-    if ~any(any(all(bsxfun(@eq,tempT,T'),2),1)) %~ismember(tempT,T','rows')
+    if ~any(any(all(bsxfun(@eq,tempT',T)))) %~ismember(tempT,T','rows')
 %     for iiii = 1:count-2
 %         if isequal(tempT(:),T(:,iiii))
-%             %T(:,count) = [];
-%             %allocations(count,:) = [];
-%             count = count -1;
 %             flag = true;
 %             break;
 %         end
@@ -123,17 +140,19 @@ end
 
 [qq,ii,~] = unique(T','rows','first');
 T = qq';
-allocations = allocations(ii,:);
+allocations = allocations(:,ii);
 
 if nargout > 4
-olda = allocations;
+olda = allocations';
 oldT = T;
 end
 
 
 toremove = find(all(bsxfun(@eq,T,zeros(N,1))));
-allocations(toremove,:) = [];
+allocations(:,toremove) = [];
 T(:,toremove) = [];
+
+allocations = allocations';
 
     function channel_lexic = create_channel(varargin)
         if nargin < 1
